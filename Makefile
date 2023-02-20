@@ -34,7 +34,7 @@ info:
 	@echo "Available RAM: $(AVAILABLE_RAM)"
 
 test:
-	go test ./tests/...
+	go test -count=1 -mod=readonly ./tests/...
 
 help:
 	@echo "Available commands:"
