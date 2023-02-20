@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  #  docker run --name redis-cli  -it --network voting-network --rm redis redis-cli -h redis
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - voting-network
+  rabbit:
+    container_name: rabbit
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672" # admin port
+      - "5672:5672" # default port
+    labels:
+      NAME: "rabbitmq"
+    volumes:
+      - ./extras/rabbitmq/enabled_plugins.txt:/etc/rabbitmq/enabled_plugins
+      - ./extras/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    networks:
+      - voting-network
+networks:
+  voting-network:
+    name: voting-network

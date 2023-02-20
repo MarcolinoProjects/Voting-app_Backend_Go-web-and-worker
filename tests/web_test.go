@@ -10,10 +10,11 @@ import (
 )
 
 func TestMain(m *testing.M) {
+	// Initialize the app configuration and shut it down when the tests are finished.
 	config.InitializeAppConfig(false)
 	code := m.Run()
 	config.ShutDown()
-	log.Println("SHUT")
+	log.Println("App configuration shut down.")
 	os.Exit(code)
 }
 
@@ -31,20 +32,21 @@ func TestRetrieveInfoAboutVoteSession(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	payload := givenVotingSession()
-	req := whenCreateRequest(payload, router, w)
-	votingSession, err := assertVotingSessionWasCreated(t, w)
+	whenCreateRequest(payload, router, w)
+	votingSession, _ := assertVotingSessionWasCreated(t, w)
 
-	w = whenFetchVotingSessionRequest(t, req, err, votingSession, w, router)
+	w = whenFetchVotingSessionRequest(t, votingSession, router)
 	assertVotingSessionFetched(t, w)
 }
+
 func TestDeleteVoteSession(t *testing.T) {
 	router := handlers.SetupRouter()
 	w := httptest.NewRecorder()
 
 	payload := givenVotingSession()
-	req := whenCreateRequest(payload, router, w)
-	votingSession, err := assertVotingSessionWasCreated(t, w)
+	whenCreateRequest(payload, router, w)
+	votingSession, _ := assertVotingSessionWasCreated(t, w)
 
-	w = whenDeleteVotingSessionRequest(t, req, err, votingSession, w, router)
+	w = whenDeleteVotingSessionRequest(t, votingSession, router)
 	assertVotingSessionDeleted(t, w)
 }
