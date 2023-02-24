@@ -11,26 +11,26 @@ import (
 
 var ctx = context.Background()
 
-//Candidate model representing candidates
+// Candidate model representing candidates
 type Candidate struct {
 	UUID  string `json:"uuid"`
 	Name  string `json:"name"`
 	Votes int    `json:"votes"`
 }
 
-//NewCandidate :constructor for Candidate model
+// NewCandidate :constructor for Candidate model
 func NewCandidate(UUID string, name string, votes int) *Candidate {
 	return &Candidate{UUID: UUID, Name: name, Votes: votes}
 }
 
-//Voting model representing voting sessions
+// Voting model representing voting sessions
 type Voting struct {
 	UUID       string      `json:"uuid"`
 	Name       string      `json:"name"`
 	Candidates []Candidate `json:"candidates"`
 }
 
-//Voting model representing voting sessions
+// Voting model representing voting sessions
 type VotingAction struct {
 	VotingUUID    string `json:"votingUuid"`
 	CandidateUuid string `json:"candidateUuid"`
@@ -45,7 +45,7 @@ func UnmarshalVotingAction(vote []byte) (*VotingAction, error) {
 	return &votingAction, nil
 }
 
-//NewVoting :constructor for Voting sessions
+// NewVoting :constructor for Voting sessions
 func NewVoting(UUID string, name string, candidates []Candidate) *Voting {
 	return &Voting{UUID: UUID, Name: name, Candidates: candidates}
 }
@@ -92,7 +92,7 @@ func (v *Voting) SendMessageOnRabbit(queue ...string) {
 
 }
 
-//VoteOnCandidateAction send vote to rabbitmq where the worker will take care of the counting part
+// VoteOnCandidateAction send vote to rabbitmq where the worker will take care of the counting part
 func (v *Voting) VoteOnCandidateAction(uuid string) error {
 	for i := range v.Candidates {
 		if v.Candidates[i].UUID == uuid {

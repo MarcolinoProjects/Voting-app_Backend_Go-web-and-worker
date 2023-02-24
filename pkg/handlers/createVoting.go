@@ -17,23 +17,23 @@ Host: ...
 Content-Type: application/json
 Content-Length: 368
 
-  {
-    "uuid": "ba9ef00d-3cd6-48a5-8f55-1d0fd00eebd6",
-    "name": "voting",
-    "candidates": [
+	{
+	  "uuid": "ba9ef00d-3cd6-48a5-8f55-1d0fd00eebd6",
+	  "name": "voting",
+	  "candidates": [
 
-        {
-          "uuid": "36731832-72a6-4811-a61b-5b20cfd5bfd2",
-          "name": "Roberts",
-          "votes": 0
-        },
-        {
-          "uuid": "e7b35078-8eec-4d74-ad14-d5654d95c773",
-          "name": "Park",
-          "votes": 0
-        }
-    ]
-  }
+	      {
+	        "uuid": "36731832-72a6-4811-a61b-5b20cfd5bfd2",
+	        "name": "Roberts",
+	        "votes": 0
+	      },
+	      {
+	        "uuid": "e7b35078-8eec-4d74-ad14-d5654d95c773",
+	        "name": "Park",
+	        "votes": 0
+	      }
+	  ]
+	}
 */
 func CreateVoting(c *gin.Context) {
 	var voting models.Voting
